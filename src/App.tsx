@@ -1,26 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+/*Libs*/
+import React, {useRef, useState} from 'react';
+import {Route, Routes} from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+/*Styles*/
+import "./styles.scss"
+import "./App.scss";
+import 'primeicons/primeicons.css'
+import "primereact/resources/themes/lara-light-cyan/theme.css";
+
+/*Components*/
+import {Sidenav} from "./layout/SideNav/Sidenav";
+import {Navbar} from "./layout/Navbar/Navbar";
+import {Footer} from "./layout/Footer/Footer";
+import {Breadcrumb} from "./layout/Breadcrumb/Breadcrumb";
+import {Products} from "./pages/Products/Products";
+import {ProductsAdmin} from "./pages/ProductsAdmin/ProductsAdmin";
+import {ToastProvider} from "./utils/ToastProvider";
+
+const App: React.FC = () => {
+
+    const [isNavbarExpanded, setIsNavbarExpanded] = useState(true);
+
+    const toggleNavbar = (toggle: boolean) => {
+        setIsNavbarExpanded(toggle);
+    };
+
+    return (
+        <>
+            <Navbar/>
+            <div className="app-container">
+                <Sidenav onToggle={toggleNavbar}/>
+                <div className={`app-header ${isNavbarExpanded ? 'expanded' : ''}`}>
+                    <Breadcrumb/>
+                </div>
+                <div className={`app-frame ${isNavbarExpanded ? 'expanded' : ''}`}>
+                    <ToastProvider>
+                        <Routes>
+                            <Route path={'/products'} element={<Products/>}/>
+                            <Route path={'/admin/products'} element={<ProductsAdmin/>}/>
+                        </Routes>
+                    </ToastProvider>
+                </div>
+                <Footer/>
+            </div>
+        </>
+    );
 }
 
 export default App;

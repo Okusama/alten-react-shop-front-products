@@ -1,0 +1,25 @@
+.productPage {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .productList {
+
+    width: 45vw;
+
+    .productListHeader {
+
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+    }
+
+  }
+
+}
+
+
+
